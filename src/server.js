@@ -3,7 +3,7 @@ import pool from "../config/database.js";
 
 const app = express();
 
-app.get("/", async (req, res) => {
+app.get("/", async (_, res) => {
   try {
     const result = await pool.query("SELECT FROM users");
     return res.status(200).json(result.rows);
