@@ -50,17 +50,6 @@ app.get("/api/user_choice", async (_, res) => {
 // });
 
 app.post("/api/user_choice", async (req, res) => {
-  // Sample data for testing
-  const sampleData = {
-    name: "John Doe",
-    email: "johndoe@example.com",
-    mobile_number: "1234567890",
-    plan_choice: "Pro",
-    payment_frequency: "Yearly",
-    addons_choice: "online service",
-    addons_payment_frequency: "Yearly",
-  };
-
   const {
     name,
     email,
@@ -69,7 +58,7 @@ app.post("/api/user_choice", async (req, res) => {
     payment_frequency,
     addons_choice,
     addons_payment_frequency,
-  } = req.body || sampleData;
+  } = req.body;
 
   try {
     const result = await pool.query(
@@ -85,6 +74,7 @@ app.post("/api/user_choice", async (req, res) => {
       ]
     );
     const row = result.rows[0];
+    console.log(req.body);
     return res.status(201).json(row);
   } catch (error) {
     console.error("Error while executing POST request:", error);
