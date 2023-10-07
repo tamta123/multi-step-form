@@ -62,7 +62,7 @@ app.post("/api/user_choice", async (req, res) => {
 
   try {
     const result = await pool.query(
-      "INSERT INTO user_choices(name,email,mobile_number,plan_choice,payment_frequency,addons_choice,addons_payment_frequency) VALUES($1,$2,$3,$4,$5,$6,$7)",
+      "INSERT INTO user_choices(name, email, mobile_number, plan_choice, payment_frequency, addons_choice, addons_payment_frequency) VALUES ($1, $2, $3, $4, $5, $6, $7)",
       [
         name,
         email,
