@@ -17,7 +17,7 @@ app.get("/", async (_, res) => {
   }
 });
 
-app.post("/ ", async (res, req) => {
+app.post("/api/user_choice", async (res, req) => {
   const {
     name,
     email,
