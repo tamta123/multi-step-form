@@ -17,7 +17,7 @@ app.get("/", async (_, res) => {
   }
 });
 
-app.post("/api/user_choice", async (res, req) => {
+app.post("/ ", async (res, req) => {
   const {
     name,
     email,
@@ -29,7 +29,7 @@ app.post("/api/user_choice", async (res, req) => {
   } = req.body;
   try {
     const result = await pool.query(
-      "INSERT INTO TABLE user_choices( name,email,mobile_number,plan_choice,payment_frequency,addons_choice,addons_payment_frequency) VALUE($1,$2,$3,$4,$5,$6,$7)",
+      "INSERT INTO TABLE user_choices(name,email,mobile_number,plan_choice,payment_frequency,addons_choice,addons_payment_frequency) VALUE($1,$2,$3,$4,$5,$6,$7)",
       [
         name,
         email,
@@ -43,7 +43,7 @@ app.post("/api/user_choice", async (res, req) => {
     const row = result.rows[0];
     return res.status(201).json(row); //სტატუსი 201 არის ახალი დოკუმენტის ჩამატება
   } catch (error) {
-    return res.status(500).json({ massage: error });
+    return res.status(400).json({ massage: error });
   }
 });
 
