@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 
 app.get("/api/user_choice", async (_, res) => {
   try {
-    const result = await pool.query("SELECT * FROM user_choices"); // Corrected the SQL query.
+    const result = await pool.query("SELECT * FROM choices"); // Corrected the SQL query.
     const rows = result.rows;
     return res.status(200).json(rows);
   } catch (error) {
@@ -62,7 +62,7 @@ app.post("/api/user_choice", async (req, res) => {
 
   try {
     const result = await pool.query(
-      "INSERT INTO user_choices(name, email, mobile_number, plan_choice, payment_frequency, addons_choice, addons_payment_frequency) VALUES ($1, $2, $3, $4, $5, $6, $7)",
+      "INSERT INTO choices(name, email, mobile, plan_choice, payment_frequency, addons_choice, addons_payment_frequency) VALUES ($1, $2, $3, $4, $5, $6, $7)",
       [
         name,
         email,
