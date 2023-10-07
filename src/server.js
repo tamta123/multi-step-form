@@ -7,7 +7,7 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-app.get("/", async (_, res) => {
+app.get("/api/user_choice", async (_, res) => {
   try {
     const result = await pool.query("SELECT * FROM user_choices"); // Corrected the SQL query.
     const rows = result.rows;
