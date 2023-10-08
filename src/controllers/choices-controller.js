@@ -28,7 +28,7 @@ export const addUserChoice = async (req, res) => {
 
   const { error, value } = schema.validate(req.body); //validate(value we want to validate), in this case it is req.body, this validate method returns an object with error and value properties, so we destructure this.
   if (error) {
-    return res.status(400).json({ message: error }, "invalid request");
+    return res.status(400).json({ message: error.details });
   }
 
   try {
