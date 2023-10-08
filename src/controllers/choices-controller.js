@@ -1,4 +1,5 @@
 import pool from "../config/database.js";
+import Joi from "joi";
 
 export const getChoiceInfo = async (_, res) => {
   try {
@@ -12,29 +13,36 @@ export const getChoiceInfo = async (_, res) => {
 };
 
 export const addUserChoice = async (req, res) => {
-  const {
-    name,
-    email,
-    mobile_number,
-    plan_choice,
-    payment_frequency,
-    online_service,
-    larger_storage,
-    customizable_profile,
-  } = req.body;
+  const schema = Joi.object({
+    name: Joi.string().min(3).max(25).required(),
+    email: Joi.string().email().required(),
+    mobile_number: Joi.string()
+      .regex(/^\d{6,}$/)
+      .required(),
+    plan_choice: Joi.string().valid("Arcade", "Advanced", "Pro").required(),
+    payment_frequency: Joi.string().valid("Yearly", "Monthly").required(),
+    online_service: Joi.boolean().required(),
+    larger_storage: Joi.boolean().required(),
+    customizable_profile: Joi.boolean().required(),
+  });
+
+  const { error, value } = schema.validate(req.body); //validate(value we want to validate), in this case it is req.body, this validate method returns an object with error and value properties, so we destructure this.
+  if (error) {
+    return res.status(400).json({ message: error }, "invalid request");
+  }
 
   try {
     const result = await pool.query(
       "INSERT INTO choices(name, email, mobile, plan_choice, payment_frequency, online_service, larger_storage, customizable_profile ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)",
       [
-        name,
-        email,
-        mobile_number,
-        plan_choice,
-        payment_frequency,
-        online_service,
-        larger_storage,
-        customizable_profile,
+        value.name,
+        value.email,
+        value.mobile_number,
+        value.plan_choice,
+        value.payment_frequency,
+        value.online_service,
+        value.larger_storage,
+        value.customizable_profile,
       ]
     );
     const row = result.rows[0];
