@@ -18,21 +18,23 @@ export const addUserChoice = async (req, res) => {
     mobile_number,
     plan_choice,
     payment_frequency,
-    addons_choice,
-    addons_payment_frequency,
+    online_service,
+    larger_storage,
+    customizable_profile,
   } = req.body;
 
   try {
     const result = await pool.query(
-      "INSERT INTO choices(name, email, mobile, plan_choice, payment_frequency, addons_choice, addons_payment_frequency) VALUES ($1, $2, $3, $4, $5, $6, $7)",
+      "INSERT INTO choices(name, email, mobile, plan_choice, payment_frequency, online_service, larger_storage, customizable_profile ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)",
       [
         name,
         email,
         mobile_number,
         plan_choice,
         payment_frequency,
-        addons_choice,
-        addons_payment_frequency,
+        online_service,
+        larger_storage,
+        customizable_profile,
       ]
     );
     const row = result.rows[0];
