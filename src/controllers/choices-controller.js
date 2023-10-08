@@ -1,4 +1,5 @@
 import pool from "../config/database.js";
+import { validateChoices } from "../validator.js";
 
 export const getChoiceInfo = async (_, res) => {
   try {
@@ -12,7 +13,7 @@ export const getChoiceInfo = async (_, res) => {
 };
 
 export const addUserChoice = async (req, res) => {
-  const { error, value } = validator(req.body);
+  const { error, value } = validateChoices(req.body);
   //validate(value we want to validate), in this case it is req.body, this validate method returns an object with error and value properties, so we destructure this.
   //in the validate method we can pass abortEarly, when true, stops validation on the first error, otherwise returns all the errors found.
   if (error) {
