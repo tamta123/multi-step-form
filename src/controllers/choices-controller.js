@@ -33,7 +33,7 @@ export const addUserChoice = async (req, res) => {
 
   try {
     const result = await pool.query(
-      "INSERT INTO choices(name, email, mobile, plan_choice, payment_frequency, online_service, larger_storage, customizable_profile ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)",
+      "INSERT INTO choices(name, email, mobile, plan_choice, payment_frequency, online_service, larger_storage, customizable_profile) VALUES ($1, $2, $3, $4, $5, $6, $7, $8);",
       [
         value.name,
         value.email,
