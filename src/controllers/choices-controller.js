@@ -1,5 +1,4 @@
 import pool from "../config/database.js";
-import Joi from "joi";
 
 export const getChoiceInfo = async (_, res) => {
   try {
@@ -13,20 +12,9 @@ export const getChoiceInfo = async (_, res) => {
 };
 
 export const addUserChoice = async (req, res) => {
-  const schema = Joi.object({
-    name: Joi.string().min(3).max(25).required(),
-    email: Joi.string().email().required(),
-    mobile_number: Joi.string()
-      .regex(/^\d{6,}$/)
-      .required(),
-    plan_choice: Joi.string().valid("Arcade", "Advanced", "Pro").required(),
-    payment_frequency: Joi.string().valid("Yearly", "Monthly").required(),
-    online_service: Joi.boolean().required(),
-    larger_storage: Joi.boolean().required(),
-    customizable_profile: Joi.boolean().required(),
-  });
-
-  const { error, value } = schema.validate(req.body); //validate(value we want to validate), in this case it is req.body, this validate method returns an object with error and value properties, so we destructure this.
+  const { error, value } = validator(req.body);
+  //validate(value we want to validate), in this case it is req.body, this validate method returns an object with error and value properties, so we destructure this.
+  //in the validate method we can pass abortEarly, when true, stops validation on the first error, otherwise returns all the errors found.
   if (error) {
     return res.status(400).json({ message: error.details });
   }
