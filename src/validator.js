@@ -4,13 +4,19 @@ const validator = (schema) => (payload) =>
   schema.validate(payload, { abortEarly: false });
 
 const schema = Joi.object({
-  name: Joi.string().min(3).max(25).required(),
+  name: Joi.string().min(2).max(25).required(),
   email: Joi.string().email().required(),
   mobile_number: Joi.string()
     .regex(/^\d{6,}$/)
     .required(),
-  plan_choice: Joi.string().valid("Arcade", "Advanced", "Pro").required(),
-  payment_frequency: Joi.string().valid("Yearly", "Monthly").required(),
+  plan_choice: Joi.string()
+    .valid("arcade", "advanced", "pro")
+    .lowercase()
+    .required(),
+  payment_frequency: Joi.string()
+    .valid("yearly", "monthly")
+    .lowercase()
+    .required(),
   online_service: Joi.boolean().required(),
   larger_storage: Joi.boolean().required(),
   customizable_profile: Joi.boolean().required(),
