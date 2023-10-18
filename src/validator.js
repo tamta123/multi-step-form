@@ -6,7 +6,7 @@ const validator = (schema) => (payload) =>
 const schema = Joi.object({
   name: Joi.string().min(2).max(25).required(),
   email: Joi.string().email().required(),
-  mobile_number: Joi.string()
+  mobile: Joi.string()
     .regex(/^\d{6,}$/)
     .required(),
   plan_choice: Joi.string()

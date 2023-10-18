@@ -26,7 +26,7 @@ export const addUserChoice = async (req, res) => {
       [
         value.name,
         value.email,
-        value.mobile_number,
+        value.mobile,
         value.plan_choice,
         value.payment_frequency,
         value.online_service,
