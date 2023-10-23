@@ -14,21 +14,19 @@ export const getChoiceInfo = async (_, res) => {
 
 export const addUserChoice = async (req, res) => {
   const { error, value } = validateChoices(req.body);
-  //validate(value we want to validate), in this case it is req.body, this validate method returns an object with error and value properties, so we destructure this.
-  //in the validate method we can pass abortEarly, when true, stops validation on the first error, otherwise returns all the errors found.
   if (error) {
     return res.status(400).json({ message: error.details });
   }
 
   try {
     const existingUser = await pool.query(
-      "SELECT name FROM choices WHERE name = $1",
-      [value.name]
+      "SELECT email FROM choices WHERE name = $1",
+      [value.email]
     );
     if (existingUser.rows.length > 0) {
       return res
         .status(400)
-        .json({ message: "A user with this name already exists." });
+        .json({ message: "A user with this email already exists." });
     }
 
     const result = await pool.query(
