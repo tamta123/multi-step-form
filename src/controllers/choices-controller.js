@@ -20,7 +20,7 @@ export const addUserChoice = async (req, res) => {
 
   try {
     const existingUser = await pool.query(
-      "SELECT email FROM choices WHERE name = $1",
+      "SELECT email FROM choices WHERE email = $1",
       [value.email]
     );
     if (existingUser.rows.length > 0) {
