@@ -21,6 +21,16 @@ export const addUserChoice = async (req, res) => {
   }
 
   try {
+    const existingUser = await pool.query(
+      "SELECT name FROM choices WHERE name = $1",
+      [value.name]
+    );
+    if (existingUser.rows.length > 0) {
+      return res
+        .status(400)
+        .json({ message: "A user with this name already exists." });
+    }
+
     const result = await pool.query(
       "INSERT INTO choices(name, email, mobile, plan_choice, payment_frequency, online_service, larger_storage, customizable_profile) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)",
       [
