@@ -11,14 +11,14 @@ async function init() {
   } catch (error) {
     console.log(error);
   }
-  const corsOptions = {
-    origin: "https://multi-step-form-front-sepia.vercel.app",
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    credentials: true,
-    optionsSuccessStatus: 204,
-  };
 
   function serverStart() {
+    const corsOptions = {
+      origin: "https://multi-step-form-front-sepia.vercel.app",
+      methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+      credentials: true,
+      optionsSuccessStatus: 204,
+    };
     app.use(cors(corsOptions));
     app.options("*", cors(corsOptions));
     app.use(bodyParser.json());
